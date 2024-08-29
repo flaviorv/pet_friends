@@ -1,6 +1,5 @@
 package com.agendamento.dominio;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +9,7 @@ public class ServicoAgendado {
     private int id;
     private String data;
     private Servicos servico;
+    private int idPrestador;
 
     public void setId(int id) {
         this.id = id;
@@ -30,6 +30,14 @@ public class ServicoAgendado {
 
     public void setServico(Servicos servico) {
         this.servico = servico;
+    }
+
+    public int getIdPrestador(){
+        return idPrestador;
+    }
+
+    public void setIdPrestador(int idFuncionario){
+        this.idPrestador = idFuncionario;
     }
 }
 

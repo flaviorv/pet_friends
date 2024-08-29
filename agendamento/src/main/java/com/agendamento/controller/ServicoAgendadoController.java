@@ -3,9 +3,8 @@ package com.agendamento.controller;
 import com.agendamento.dominio.ServicoAgendado;
 import com.agendamento.service.ServicoAgendadoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/")
@@ -18,10 +17,14 @@ public class ServicoAgendadoController {
         return servicoAgendadoService.listar();
     }
 
-    @PostMapping
-    public ServicoAgendado salvar(@RequestBody ServicoAgendado servicoAgendado) {
-
-        return servicoAgendadoService.salvar(servicoAgendado);
+    @PostMapping("/")
+    public ResponseEntity salvar(@RequestBody ServicoAgendado servicoAgendado) {
+        try {
+            return ResponseEntity.ok(servicoAgendadoService.salvar(servicoAgendado));
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
 }

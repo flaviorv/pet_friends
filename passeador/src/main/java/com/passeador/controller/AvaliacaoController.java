@@ -1,8 +1,10 @@
 package com.passeador.controller;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.passeador.domain.Avaliacao;
 import com.passeador.service.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +19,12 @@ public class AvaliacaoController {
     }
 
     @PostMapping("/{idPasseador}")
-    public Avaliacao adicionar(@RequestBody Avaliacao avaliacao , @PathVariable int idPasseador) throws Exception {
-
-        return avaliacaoService.salvar(avaliacao, idPasseador);
+    public ResponseEntity adicionar(@RequestBody Avaliacao avaliacao , @PathVariable int idPasseador) {
+        try {
+            return ResponseEntity.ok(avaliacaoService.salvar(avaliacao, idPasseador));
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body(e.getMessage());
+        }
     }
 
 }

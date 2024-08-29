@@ -12,9 +12,10 @@ public class PasseadorTests {
 
     @Test
     @DisplayName("Receber dados do serviço de Passeador")
-    void obterPasseador(){
+    void obterPasseador() throws Exception {
         Passeador passeador = new Passeador();
         PasseadorClient pClient = new PasseadorClient();
+
         passeador = pClient.porId(1);
 
         int esperado = 1;

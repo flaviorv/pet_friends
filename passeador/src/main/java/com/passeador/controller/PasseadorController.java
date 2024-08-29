@@ -3,6 +3,7 @@ package com.passeador.controller;
 import com.passeador.domain.Passeador;
 import com.passeador.service.PasseadorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +18,15 @@ public class PasseadorController {
     }
 
     @GetMapping("/{id}")
-    public Passeador buscar(@PathVariable int id) throws Exception {
-        return passeadorService.porId(id);
+    public ResponseEntity buscar(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(passeadorService.porId(id));
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
     }
+
 
     @PostMapping
     public Passeador cadastrar(@RequestBody Passeador passeador) {
