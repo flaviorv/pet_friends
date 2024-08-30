@@ -1,5 +1,6 @@
 package com.passeador.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -11,8 +12,9 @@ public class Avaliacao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private int avaliacao;
+
     @ManyToOne
-    @JoinColumn(name="idPasseador", nullable=false)
+    @JoinColumn(name="ID_PASSEADOR", nullable=false)
     private Passeador passeador;
 
     public int getId() {
@@ -31,9 +33,7 @@ public class Avaliacao {
         this.avaliacao = avaliacao;
     }
 
-    public Passeador getPasseador() {
-        return passeador;
-    }
+
 
     public void setPasseador(Passeador passeador) {
         this.passeador = passeador;

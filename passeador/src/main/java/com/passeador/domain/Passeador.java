@@ -1,5 +1,7 @@
 package com.passeador.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -15,7 +17,13 @@ public class Passeador {
     @Transient
     private float avaliacaoMedia;
 
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
 
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
 
     public int getId(){
         return id;
@@ -39,5 +47,6 @@ public class Passeador {
         }
         return Avaliacao.calcularMedia(avaliacoes);
     }
+
 
 }

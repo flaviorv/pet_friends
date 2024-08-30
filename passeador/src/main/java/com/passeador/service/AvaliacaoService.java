@@ -21,4 +21,6 @@ public class AvaliacaoService {
         avaliacao.setPasseador(passeadorService.porId(idPasseador));
         return avaliacaoRepository.save(avaliacao);
     }
+
+
 }
