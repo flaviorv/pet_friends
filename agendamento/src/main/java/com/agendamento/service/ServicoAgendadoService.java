@@ -24,7 +24,6 @@ public class ServicoAgendadoService {
         if(servicoAgendado.getServico() == Servicos.PASSEIO) {
             try {
                 Passeador p = passeadorClient.porId(servicoAgendado.getIdPrestador());
-                System.out.println(p.getNome() + p.getAvaliacaoMedia());
 
             }catch (Exception e) {
                 throw new Exception("Passeador não encontrado.");
@@ -34,6 +33,10 @@ public class ServicoAgendadoService {
             throw new Exception("Prestador de serviços ainda não cadastrado. Escolha outro serviço");
         }
     }
+
+//    public Iterable<Passeador> listarPasseadores() {
+//
+//    }
 
 
 }

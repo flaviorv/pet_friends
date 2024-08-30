@@ -15,4 +15,15 @@ public class PasseadorClient {
                 .getBody();
         return passeador;
     }
+
+    public Iterable<Passeador> listarPasseadores() {
+        RestClient restClient = RestClient.create();
+        String url = String.format("http://localhost:8081/");
+        Iterable<Passeador> passeadores = restClient.get()
+                .uri(url)
+                .retrieve()
+                .toEntity(Iterable.class)
+                .getBody();
+        return passeadores;
+    }
 }

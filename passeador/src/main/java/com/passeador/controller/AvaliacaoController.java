@@ -1,6 +1,5 @@
 package com.passeador.controller;
 
-import ch.qos.logback.core.encoder.EchoEncoder;
 import com.passeador.domain.Avaliacao;
 import com.passeador.service.AvaliacaoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ public class AvaliacaoController {
     @PostMapping("/{idPasseador}")
     public ResponseEntity adicionar(@RequestBody Avaliacao avaliacao , @PathVariable int idPasseador) {
         try {
-            System.out.println("Avaliacao adicionada: " + avaliacao);
             return ResponseEntity.ok(avaliacaoService.salvar(avaliacao, idPasseador));
         }catch (Exception e){
             return ResponseEntity.internalServerError().body(e.getMessage());

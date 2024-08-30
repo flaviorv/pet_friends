@@ -15,7 +15,7 @@ public class Passeador {
     @OneToMany(mappedBy = "passeador")
     private List<Avaliacao> avaliacoes;
     @Transient
-    private float avaliacaoMedia;
+    private String avaliacaoMedia;
 
     public List<Avaliacao> getAvaliacoes() {
         return avaliacoes;
@@ -41,11 +41,12 @@ public class Passeador {
         this.nome = nome;
     }
 
-    public float getAvaliacaoMedia() {
+    public String getAvaliacaoMedia() {
         if(avaliacoes == null || avaliacoes.isEmpty()){
-            return 0;
+            return "0";
         }
-        return Avaliacao.calcularMedia(avaliacoes);
+        float _avaliacaoMedia = Avaliacao.calcularMedia(avaliacoes);
+        return String.format("%.1f", _avaliacaoMedia);
     }
 
 

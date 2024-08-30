@@ -3,7 +3,7 @@ package com.agendamento.client;
 public class Passeador {
     private int id;
     private String nome;
-    private float avaliacaoMedia;
+    private String avaliacaoMedia;
 
     public int getId() {
         return id;
@@ -21,11 +21,11 @@ public class Passeador {
         this.nome = nome;
     }
 
-    public float getAvaliacaoMedia() {
+    public String getAvaliacaoMedia() {
         return avaliacaoMedia;
     }
 
-    public void setAvaliacaoMedia(float avaliacaoMedia) {
+    public void setAvaliacaoMedia(String avaliacaoMedia) {
         this.avaliacaoMedia = avaliacaoMedia;
     }
 }
