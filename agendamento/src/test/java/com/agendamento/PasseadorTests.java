@@ -15,7 +15,7 @@ public class PasseadorTests {
     @Test
     @DisplayName("Receber dados do serviço de Passeador")
     void obterPasseador() {
-        Passeador passeador = new Passeador();
+        Passeador passeador;
         PasseadorClient pClient = new PasseadorClient();
         passeador = pClient.porId(1);
 
@@ -28,11 +28,11 @@ public class PasseadorTests {
     @Test
     @DisplayName("Receber todos passeadores")
     void obterPasseadors() {
-        Iterable<Passeador> passeadores = new ArrayList<>();
+        Passeador[] passeadores;
         PasseadorClient client = new PasseadorClient();
         passeadores  = client.listarPasseadores();
 
-        Boolean atual = passeadores.spliterator().getExactSizeIfKnown() > 0;
+        Boolean atual = passeadores.length > 0;
 
         System.out.println(passeadores);
         Assertions.assertTrue(atual);

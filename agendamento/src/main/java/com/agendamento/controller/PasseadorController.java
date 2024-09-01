@@ -14,7 +14,7 @@ public class PasseadorController {
     PasseadorClient passeadorClient;
 
     @GetMapping
-    Iterable<Passeador> listaPasseadores() {
+    Passeador[] listaPasseadores() {
         return passeadorClient.listarPasseadores();
     }
 }

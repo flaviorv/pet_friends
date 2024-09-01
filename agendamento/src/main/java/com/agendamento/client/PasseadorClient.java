@@ -3,6 +3,9 @@ package com.agendamento.client;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class PasseadorClient {
     public Passeador porId(int id) {
@@ -16,14 +19,16 @@ public class PasseadorClient {
         return passeador;
     }
 
-    public Iterable<Passeador> listarPasseadores() {
+    public Passeador[] listarPasseadores() {
         RestClient restClient = RestClient.create();
         String url = String.format("http://localhost:8081/");
-        Iterable<Passeador> passeadores = restClient.get()
+        Passeador[] passeadores
+                = restClient.get()
                 .uri(url)
                 .retrieve()
-                .toEntity(Iterable.class)
+                .toEntity(Passeador[].class)
                 .getBody();
+
         return passeadores;
     }
 }
