@@ -25,7 +25,6 @@ public class ServicoAgendadoController {
     public ResponseEntity salvar(@RequestBody ServicoAgendado servicoAgendado) {
         try {
             servicoAgendadoService.salvar(servicoAgendado);
-            servicoAgendadoService.msgAgendamentoConcluido(servicoAgendado);
             return ResponseEntity.ok(servicoAgendado);
         }catch (Exception e) {
             LOG.error(e.getMessage());

@@ -37,8 +37,13 @@ public class ServicoAgendadoService {
             }catch (Exception e) {
                 throw new Exception("Passeador não encontrado.");
             }
-            return servicoAgendadoRepository.save(servicoAgendado);
-        }else{
+
+            servicoAgendadoRepository.save(servicoAgendado);
+            msgAgendamentoConcluido(servicoAgendado);
+            return servicoAgendado;
+        } else if (servicoAgendado.getServico() == Servicos.CONSULTA) {
+            throw new Exception("Microsserviço de Veterinário ainda não foi implementado.");
+        } else{
             throw new Exception("Prestador de serviços ainda não cadastrado. Escolha outro serviço");
         }
     }
