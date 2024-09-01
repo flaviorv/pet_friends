@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ServicoAgendadoMessage {
 
-    private  static final Logger LOG = LoggerFactory.getLogger(ServicoAgendadoMessage.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ServicoAgendadoMessage.class);
 
     @Bean
     public MessageChannel inputMessageChannel() {

@@ -1,6 +1,5 @@
 package com.passeador.service;
 
-import com.passeador.domain.Avaliacao;
 import com.passeador.domain.Passeador;
 import com.passeador.infra.PasseadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,8 @@ package com.agendamento.controller;
 
 import com.agendamento.domain.ServicoAgendado;
 import com.agendamento.service.ServicoAgendadoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/")
 public class ServicoAgendadoController {
+    private static final Logger LOG = LoggerFactory.getLogger(ServicoAgendadoController.class);
+
     @Autowired
     private ServicoAgendadoService servicoAgendadoService;
 
@@ -24,7 +28,7 @@ public class ServicoAgendadoController {
             servicoAgendadoService.msgAgendamentoConcluido(servicoAgendado);
             return ResponseEntity.ok(servicoAgendado);
         }catch (Exception e) {
-            System.out.println(e.getMessage());
+            LOG.error(e.getMessage());
             return ResponseEntity.internalServerError().body(e.getMessage());
         }
     }
