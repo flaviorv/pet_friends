@@ -1,4 +1,4 @@
-package com.agendamento.dominio;
+package com.agendamento.domain;
 
 public class Data {
     private String dia;

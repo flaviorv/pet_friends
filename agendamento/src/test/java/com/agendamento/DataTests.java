@@ -1,7 +1,6 @@
 package com.agendamento;
 
-import com.agendamento.dominio.Data;
-import jdk.jfr.Name;
+import com.agendamento.domain.Data;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

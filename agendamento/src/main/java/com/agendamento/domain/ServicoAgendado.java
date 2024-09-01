@@ -1,4 +1,4 @@
-package com.agendamento.dominio;
+package com.agendamento.domain;
 
 import jakarta.persistence.*;
 
@@ -10,6 +10,10 @@ public class ServicoAgendado {
     private String data;
     private Servicos servico;
     private int idPrestador;
+
+    public int getId(){
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
