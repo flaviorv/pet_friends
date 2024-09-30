@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS produto (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    marca VARCHAR(30),
+    tipo VARCHAR(30),
+    preco NUMERIC(38, 2)
+
+    );
