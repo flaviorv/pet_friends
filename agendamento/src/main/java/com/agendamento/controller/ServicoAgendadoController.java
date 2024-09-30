@@ -25,11 +25,12 @@ public class ServicoAgendadoController {
     public ResponseEntity salvar(@RequestBody ServicoAgendado servicoAgendado) {
         try {
             servicoAgendadoService.salvar(servicoAgendado);
-            return ResponseEntity.ok(servicoAgendado);
+            servicoAgendadoService.msgAgendamentoConcluido(servicoAgendado);
         }catch (Exception e) {
             LOG.error(e.getMessage());
-            return ResponseEntity.internalServerError().body(e.getMessage());
+            return ResponseEntity.internalServerError().build();
         }
+        return ResponseEntity.ok(servicoAgendado);
     }
 
 }
