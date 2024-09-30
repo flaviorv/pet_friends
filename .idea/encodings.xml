@@ -2,10 +2,12 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/agendamento/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/almoxarifado/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/cliente/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/order/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/passeador/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pedido/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/produto/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/transporte/src/main/java" charset="UTF-8" />
   </component>
 </project>

@@ -37,4 +37,9 @@ public class PedidoController {
     public void excluir(@PathVariable String pedidoId) {
         pedidoService.excluir(pedidoId);
     }
+
+    @PostMapping("/{pedidoId}/fechar-pedido")
+    public void fecharPedido(@PathVariable String pedidoId) {
+        pedidoService.fecharPedido(pedidoId);
+    }
 }
