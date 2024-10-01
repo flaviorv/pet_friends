@@ -14,27 +14,8 @@ public class Pedido {
     private String id;
     private Status status;
     private BigDecimal precoTotal = BigDecimal.ZERO;
+    private int clienteId;
     private List<Produto> produtos = new ArrayList<>();
-
-    public void fecharPedido() {
-        setStatus(Status.FECHADO);
-    }
-
-    public void prepararPedido() {
-        setStatus(Status.EM_PREPARACAO);
-    }
-
-    public void enviarPedido() {
-        setStatus(Status.EM_TRANSITO);
-    }
-
-    public void entregarPedido() {
-        setStatus(Status.ENTREGUE);
-    }
-
-    public void cancelarPedido() {
-        setStatus(Status.CANCELADO);
-    }
 
     public void adicionarProduto(Produto produto) {
         Boolean produtoExiste = adicionarExistente(produto);

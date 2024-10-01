@@ -5,6 +5,8 @@ import com.almoxarifado.domain.Produto;
 import com.almoxarifado.domain.Status;
 import com.almoxarifado.infra.EstoqueRepository;
 import com.almoxarifado.domain.EstoqueProduto;
+import com.almoxarifado.infra.rabbit.PedidoProducer;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class EstoqueService {
     @Autowired
     private EstoqueRepository estoqueRepository;
+
+    @Autowired
+    private PedidoProducer pedidoProducer;
 
     public Optional<EstoqueProduto> obterEstoque(int produtoId) {
         return estoqueRepository.findById(produtoId);
@@ -45,16 +50,18 @@ public class EstoqueService {
         }
     }
 
-    public Status prepararPedido(Pedido pedido) {
+    public Status prepararPedido(Pedido pedido) throws JsonProcessingException {
         for(Produto produto : pedido.getProdutos()) {
             Optional<EstoqueProduto> estoque = obterEstoque(produto.getId());
             if(estoque.isEmpty()) {
                 pedido.setStatus(Status.CANCELADO);
+                pedidoProducer.enviarRespostaParaPedido(pedido);
                 return Status.CANCELADO;
             }
             prepararProduto(produto.getId(), estoque.get().getUnidades());
         }
         pedido.setStatus(Status.EM_TRANSITO);
+        pedidoProducer.enviarRespostaParaPedido(pedido);
         return Status.EM_TRANSITO;
     }
 }

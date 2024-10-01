@@ -18,8 +18,10 @@ public class PedidoConsumer {
     private EstoqueService estoqueService;
 
     @RabbitListener(queues = {"almoxarifado_queue"})
-    public void receberPedido(@Payload String _pedido) throws JsonProcessingException {
+    public void receberPedido(@Payload String _pedido) throws JsonProcessingException, InterruptedException {
         Pedido pedido = mapper.readValue(_pedido, Pedido.class);
+        System.out.println(pedido);
+        Thread.sleep(5000);
         estoqueService.prepararPedido(pedido);
 
     }

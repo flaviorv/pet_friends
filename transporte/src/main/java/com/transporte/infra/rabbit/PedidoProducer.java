@@ -1,8 +1,8 @@
-package com.almoxarifado.infra.rabbit;
+package com.transporte.infra.rabbit;
 
-import com.almoxarifado.domain.Pedido;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.transporte.domain.Transporte;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class PedidoProducer {
     @Autowired
-    private AmqpTemplate amqpTemplate;
+    AmqpTemplate amqpTemplate;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ObjectMapper mapper;
 
-    public void enviarRespostaParaPedido(Pedido pedido) throws JsonProcessingException {
+    public void responderPedido(Transporte transporte) throws JsonProcessingException {
+        System.out.println(transporte);
         amqpTemplate.convertAndSend(
                 "pedidos_exchange",
-                "preparacao_resposta_rk",
-                objectMapper.writeValueAsString(pedido));
+                "evento_transporte_rk",
+                mapper.writeValueAsString(transporte));
     }
 }

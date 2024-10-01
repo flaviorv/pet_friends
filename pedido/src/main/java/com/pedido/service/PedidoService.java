@@ -1,9 +1,11 @@
 package com.pedido.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pedido.domain.Cliente;
 import com.pedido.domain.Pedido;
 import com.pedido.domain.Produto;
 import com.pedido.domain.Status;
+import com.pedido.infra.ClienteClient;
 import com.pedido.infra.PedidoRepository;
 import com.pedido.infra.ProdutoClient;
 import com.pedido.infra.rabbit.AlmoxarifadoProducer;
@@ -23,6 +25,9 @@ public class PedidoService {
     @Autowired
     private ProdutoClient   produtoClient;
 
+    @Autowired
+    private ClienteClient clienteClient;
+
     public Iterable<Pedido> obterTodos() {
         return pedidoRepository.findAll();
     }
@@ -35,11 +40,13 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 
-    public void adicionarProduto(int produtoId) {
+    public void adicionarProduto(int produtoId, int clienteId) {
         Pedido pedido = new Pedido();
-        pedido.setStatus(Status.NOVO);
+        Cliente cliente = clienteClient.buscar(clienteId);
         Produto produto = produtoClient.buscar(produtoId);
         pedido.adicionarProduto(produto);
+        pedido.setClienteId(cliente.getId());
+        System.out.println("Cliente " + cliente.getNome() + " fez um novo pedido.");
         pedidoRepository.save(pedido);
     }
 
@@ -48,7 +55,6 @@ public class PedidoService {
         Produto produto = produtoClient.buscar(produtoId);
         pedido.ifPresent(_pedido -> {
             _pedido.adicionarProduto(produto);
-            pedidoRepository.save(_pedido);
         });
     }
 
@@ -57,15 +63,20 @@ public class PedidoService {
         pedido.ifPresent(_pedido -> {
             if(_pedido.getStatus() == Status.NOVO){
                 _pedido.setStatus(Status.FECHADO);
+                pedidoRepository.save(_pedido);
                 try {
                     almoxarifadoProducer.enviarPedidoParaAlmoxarifado(_pedido);
                 } catch (JsonProcessingException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
-            }else {
-                throw new RuntimeException("Pedido está: "+_pedido.getStatus());
             }
         });
+    }
+
+    public void atualizarStatusPedido(Pedido pedidoRecebido) {
+        Pedido pedidoAtual = pedidoRepository.findById(pedidoRecebido.getId()).get();
+        pedidoAtual.setStatus(pedidoRecebido.getStatus());
+        pedidoRepository.save(pedidoAtual);
     }
 
 }

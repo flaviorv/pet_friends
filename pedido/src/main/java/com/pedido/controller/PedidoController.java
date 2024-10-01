@@ -24,8 +24,8 @@ public class PedidoController {
     }
 
     @PostMapping("/{produtoId}")
-    public void novoPedido(@PathVariable int produtoId) {
-        pedidoService.adicionarProduto(produtoId);
+    public void novoPedido(@RequestParam int cliente, @PathVariable int produtoId) {
+        pedidoService.adicionarProduto(produtoId, cliente);
     }
 
     @PostMapping("/{pedidoId}/{produtoId}")
