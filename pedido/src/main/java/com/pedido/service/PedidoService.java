@@ -1,10 +1,7 @@
 package com.pedido.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.pedido.domain.Cliente;
-import com.pedido.domain.Pedido;
-import com.pedido.domain.Produto;
-import com.pedido.domain.Status;
+import com.pedido.domain.*;
 import com.pedido.infra.ClienteClient;
 import com.pedido.infra.PedidoRepository;
 import com.pedido.infra.ProdutoClient;
@@ -74,9 +71,15 @@ public class PedidoService {
     }
 
     public void atualizarStatusPedido(Pedido pedidoRecebido) {
-        Pedido pedidoAtual = pedidoRepository.findById(pedidoRecebido.getId()).get();
-        pedidoAtual.setStatus(pedidoRecebido.getStatus());
-        pedidoRepository.save(pedidoAtual);
+        Pedido pedidoSalvo = pedidoRepository.findById(pedidoRecebido.getId()).get();
+        pedidoSalvo.setStatus(pedidoRecebido.getStatus());
+        pedidoRepository.save(pedidoSalvo);
+    }
+
+    public void atualizarStatusPedido(TransporteEvents evento) {
+        Pedido pedido = pedidoRepository.findById(evento.getIdPedido()).get();
+        pedido.setStatus(evento.getStatus());
+        pedidoRepository.save(pedido);
     }
 
 }

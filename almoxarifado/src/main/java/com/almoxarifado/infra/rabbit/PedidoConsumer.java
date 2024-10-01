@@ -21,7 +21,7 @@ public class PedidoConsumer {
     public void receberPedido(@Payload String _pedido) throws JsonProcessingException, InterruptedException {
         Pedido pedido = mapper.readValue(_pedido, Pedido.class);
         System.out.println(pedido);
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         estoqueService.prepararPedido(pedido);
 
     }

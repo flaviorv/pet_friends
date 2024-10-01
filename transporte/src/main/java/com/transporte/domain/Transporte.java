@@ -20,6 +20,7 @@ public class Transporte {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @ToString.Exclude
     private Pedido pedido;
 
     public void entregarPedido(Pedido pedido) {

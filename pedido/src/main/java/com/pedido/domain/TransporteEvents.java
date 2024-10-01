@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class TransporteEvents {
-    private int id;
     private String horario;
     private Status status;
+    private String idPedido;
 }

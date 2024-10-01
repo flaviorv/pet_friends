@@ -2,6 +2,8 @@ package com.transporte.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.transporte.domain.Pedido;
+import com.transporte.domain.Status;
+import com.transporte.domain.TransporteEvento;
 import com.transporte.domain.Transporte;
 import com.transporte.infra.PedidoRepository;
 import com.transporte.infra.TransporteRepository;
@@ -27,7 +29,8 @@ public class TransporteService {
         transporte.iniciarTransporte(pedido);
         pedidoRepository.save(pedido);
         transporteRepository.save(transporte);
-        pedidoProducer.responderPedido(transporte);
+        TransporteEvento evento = new TransporteEvento(transporte);
+        pedidoProducer.responderPedido(evento);
     }
 
     public Iterable<Pedido> obterPedidos() {
@@ -36,15 +39,20 @@ public class TransporteService {
 
     public void entregarPedido(String idPedido) throws InterruptedException, JsonProcessingException {
         Optional<Pedido> pedido = pedidoRepository.findById(idPedido);
-        Transporte transporte = new Transporte();
         if (pedido.isPresent()) {
-            transporte.entregarPedido(pedido.get());
-            transporteRepository.save(transporte);
-//            Thread.sleep(5000);
-            Transporte salvo = transporteRepository.buscarTransporteEntregue(pedido.get().getId());
-            pedidoProducer.responderPedido(salvo);
+            Transporte transporte = new Transporte();
+            Transporte entregue = transporteRepository.buscarTransporteEntregue(pedido.get().getId());
+            if (entregue == null) {
+                transporte.entregarPedido(pedido.get());
+                transporteRepository.save(transporte);
+    //            Thread.sleep(5000);
+                TransporteEvento evento = new TransporteEvento(transporte);
+                pedidoProducer.responderPedido(evento);
+            }else {
+                throw new RuntimeException("Pedido já foi entregue");
+            }
         }else {
-            throw new RuntimeException("Pedido não encontrado");
+            throw new RuntimeException("Pedido nao encontrado");
         }
 
     }
